@@ -1,0 +1,14 @@
+services:    
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      # MYSQL_DATABASE: db_cms
+      # MYSQL_USER: sa
+      # MYSQL_PASSWORD: pass_sa
+      MYSQL_ROOT_PASSWORD: password_root
+    volumes:
+      - db:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - net_back

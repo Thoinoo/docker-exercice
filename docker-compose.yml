@@ -1,0 +1,53 @@
+services:
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8083:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - net_front
+      - net_back
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    environment:
+      PUID: 1000 # optional, your user id
+      PGID: 1000 # optional, your group id
+    ports:
+      - 3000:3000
+    volumes:
+      - ./homepage/config:/app/config # Make sure your local config directory exists
+      - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
+    restart: unless-stopped
+    networks:
+      - net_back
+      - net_front
+
+  wordpress:
+    extends:
+      file: docker-wordpress.yml
+      service: wordpress
+    depends_on:
+      - db
+  ghost:
+    extends:
+      file: docker-ghost.yml
+      service: ghost
+    depends_on:
+      - db
+  db:
+    extends:
+      file: docker-database.yml
+      service: db
+
+networks:
+  net_front:
+  net_back:
+
+volumes:
+  wordpress:
+  db:
+  ghost:

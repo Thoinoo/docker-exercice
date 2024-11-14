@@ -1,0 +1,23 @@
+services:    
+  ghost:
+    image: ghost:5-alpine
+    restart: always
+    ports:
+      - 8081:2368
+    environment:
+      # see https://ghost.org/docs/config/#configuration-options
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: sa_ghost
+      database__connection__password: password_ghost
+      database__connection__database: ghost
+      # this url value is just an example, and is likely wrong for your environment!
+      url: http://192.168.0.32:8081
+      # contrary to the default mentioned in the linked documentation, this image defaults to NODE_ENV=production (so development mode needs to be explicitly specified if desired)
+      #NODE_ENV: development
+    volumes:
+      - ghost:/var/lib/ghost/content
+    networks:
+    - net_front
+    - net_back
+

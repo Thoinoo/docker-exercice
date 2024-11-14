@@ -1,0 +1,17 @@
+services:
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress1
+    ports: 
+      - "8080:80/tcp"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: sa_wordpress
+      WORDPRESS_DB_PASSWORD: password_wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - net_front
+      - net_back
+

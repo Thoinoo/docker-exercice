@@ -1,0 +1,29 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services
+
+- My First Group:
+    - Wordpress:
+        href: http://192.168.0.32:8080
+        description: Homepage is awesome
+        ping: 192.168.0.32
+        server: wordpress
+        container: wordpress1
+    - Ghost:
+        href: http://192.168.0.32:8081
+        description: Homepage is awesome
+        ping: 192.168.0.32
+    - PHP My Admin:
+        href: http://192.168.0.32:8083
+        description: Homepage is awesome
+        ping: 192.168.0.32
+
+- My Second Group:
+    - My Second Service:
+        href: http://wordpress:80
+        description: Homepage is the best
+
+- My Third Group:
+    - My Third Service:
+        href: http://localhost/
+        description: Homepage is 😎
